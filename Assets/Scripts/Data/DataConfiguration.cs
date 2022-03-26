@@ -39,7 +39,6 @@ public class DataConfiguration
         }
     }
 
-
     public float PaddleMoveUnitsPerSecond
     {
         get { return paddleMoveUnitsPerSecond; }
