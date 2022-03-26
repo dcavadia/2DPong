@@ -7,7 +7,7 @@ using UnityEngine;
 public class DataConfiguration
 {
 
-    const string ConfigurationDataFileName = "ConfigurationData.csv";
+    const string ConfigurationDataFileName = "DataConfiguration.csv";
 
     //default
     float paddleMoveUnitsPerSecond = 10;
