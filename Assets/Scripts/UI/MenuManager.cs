@@ -42,4 +42,9 @@ public class MenuManager : SingletonComponent<MenuManager>
     {
         Application.Quit();
     }
+
+    public void HandleGoToMainMenuButtonOnClickEvent()
+    {
+        GoToMenu(MenuName.Main);
+    }
 }
