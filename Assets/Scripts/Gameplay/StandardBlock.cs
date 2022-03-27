@@ -11,8 +11,10 @@ public class StandardBlock : Block
     [SerializeField]
     Sprite sprite2;
 
-    void Start()
+    override protected void Start()
     {
+        base.Start();
+
         points = GameConfiguration.StandardBlockPoints;
         SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
         int spriteNumber = Random.Range(0, 3);
@@ -29,5 +31,4 @@ public class StandardBlock : Block
             spriteRenderer.sprite = sprite2;
         }
     }
-
 }

@@ -4,8 +4,11 @@ using UnityEngine;
 
 public class BonusBlock : Block
 {
-	void Start()
-	{
-		points = GameConfiguration.BonusBlockPoints;
-	}
+    override protected void Start()
+    {
+        base.Start();
+
+        // set points
+        points = GameConfiguration.BonusBlockPoints;
+    }
 }

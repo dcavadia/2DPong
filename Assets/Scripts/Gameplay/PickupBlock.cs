@@ -16,14 +16,11 @@ public class PickupBlock : Block
     float speedupFactor;
     SpeedupEffectActivated speedupEffectActivated;
 
-    void Start()
+    override protected void Start()
     {
+        base.Start();
+
         points = GameConfiguration.PickupBlockPoints;
-    }
-
-    void Update()
-    {
-
     }
 
     override protected void OnCollisionEnter2D(Collision2D coll)
