@@ -11,7 +11,7 @@ public class DataConfiguration
 
     //default
     float paddleMoveUnitsPerSecond = 10;
-    float ballImpulseForce = 200;
+    float ballImpulseForce = 100;
     float ballLifeSeconds = 10;
     float minSpawnSeconds = 5;
     float maxSpawnSeconds = 10;
@@ -23,6 +23,9 @@ public class DataConfiguration
     float freezerBlockProbability = 0.05f;
     float speedupBlockProbability = 0.05f;
     int ballsPerGame = 5;
+    float freezerSeconds = 2;
+    float speedupFactor = 2;
+    float speedupSeconds = 2;
 
 
     public DataConfiguration()
@@ -115,6 +118,21 @@ public class DataConfiguration
         get { return ballsPerGame; }
     }
 
+    public float FreezerSeconds
+    {
+        get { return freezerSeconds; }
+    }
+
+    public float SpeedupFactor
+    {
+        get { return speedupFactor; }
+    }
+
+    public float SpeedupSeconds
+    {
+        get { return speedupSeconds; }
+    }
+
     void SetConfigurationDataFields(string csvValues)
     {
         string[] values = csvValues.Split(',');
@@ -131,6 +149,9 @@ public class DataConfiguration
         freezerBlockProbability = float.Parse(values[10]) / 100;
         speedupBlockProbability = float.Parse(values[11]) / 100;
         ballsPerGame = int.Parse(values[12]);
+        freezerSeconds = float.Parse(values[13]);
+        speedupFactor = float.Parse(values[14]);
+        speedupSeconds = float.Parse(values[15]);
     }
 
 }

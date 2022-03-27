@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class Block : MonoBehaviour
 {
-	protected int points;
+    protected int points;
 
-	void OnCollisionEnter2D(Collision2D coll)
-	{
-		if (coll.gameObject.CompareTag("Ball"))
-		{
-			HUD.AddPoints(points);
-			Destroy(gameObject);
-		}
-	}
+    virtual protected void OnCollisionEnter2D(Collision2D coll)
+    {
+        if (coll.gameObject.CompareTag("Ball"))
+        {
+            HUD.AddPoints(points);
+            Destroy(gameObject);
+        }
+    }
 }

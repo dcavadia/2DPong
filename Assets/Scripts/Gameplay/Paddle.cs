@@ -8,8 +8,10 @@ public class Paddle : MonoBehaviour
     float halfColliderWidth;
     float halfColliderHeight;
 
-    //Aiming support
     const float BounceAngleHalfRange = 60 * Mathf.Deg2Rad;
+
+    bool frozen = false;
+    Timer freezeTimer;
 
     void Start()
     {
@@ -17,13 +19,26 @@ public class Paddle : MonoBehaviour
         BoxCollider2D bc2d = GetComponent<BoxCollider2D>();
         halfColliderWidth = bc2d.size.x / 2;
         halfColliderHeight = bc2d.size.y / 2;
+
+        freezeTimer = gameObject.AddComponent<Timer>();
+        EventManager.AddFreezerEffectListener(HandleFreezerEffectActivatedEvent);
+    }
+
+    void Update()
+    {
+        if (freezeTimer.Finished)
+        {
+            frozen = false;
+            freezeTimer.Stop();
+        }
     }
 
     void FixedUpdate()
     {
-        //Horizontal input
+        // move for horizontal input
         float horizontalInput = Input.GetAxis("Horizontal");
-        if (horizontalInput != 0)
+        if (!frozen &&
+            horizontalInput != 0)
         {
             Vector2 position = rb2d.position;
             position.x += horizontalInput * GameConfiguration.PaddleMoveUnitsPerSecond *
@@ -35,6 +50,7 @@ public class Paddle : MonoBehaviour
 
     float CalculateClampedX(float x)
     {
+        // clamp left and right edges
         if (x - halfColliderWidth < ScreenUtils.ScreenLeft)
         {
             x = ScreenUtils.ScreenLeft + halfColliderWidth;
@@ -51,7 +67,6 @@ public class Paddle : MonoBehaviour
         if (coll.gameObject.CompareTag("Ball") &&
             TopCollision(coll))
         {
-            //New ball direction
             float ballOffsetFromPaddleCenter = transform.position.x -
                 coll.transform.position.x;
             float normalizedBallOffset = ballOffsetFromPaddleCenter /
@@ -69,8 +84,21 @@ public class Paddle : MonoBehaviour
     {
         const float tolerance = 0.05f;
 
-        //On top collisions, both contact points are at the same y location
         ContactPoint2D[] contacts = coll.contacts;
         return Mathf.Abs(contacts[0].point.y - contacts[1].point.y) < tolerance;
+    }
+
+    void HandleFreezerEffectActivatedEvent(float duration)
+    {
+        frozen = true;
+        if (!freezeTimer.Running)
+        {
+            freezeTimer.Duration = duration;
+            freezeTimer.Run();
+        }
+        else
+        {
+            freezeTimer.AddTime(duration);
+        }
     }
 }

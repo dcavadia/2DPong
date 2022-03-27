@@ -33,6 +33,21 @@ public class Timer : MonoBehaviour
 		get { return running; }
 	}
 
+	public float SecondsLeft
+	{
+		get
+		{
+			if (running)
+			{
+				return totalSeconds - elapsedSeconds;
+			}
+			else
+			{
+				return 0;
+			}
+		}
+	}
+
 
 	void Update()
 	{
@@ -62,4 +77,8 @@ public class Timer : MonoBehaviour
 		running = false;
 	}
 
+	public void AddTime(float seconds)
+	{
+		totalSeconds += seconds;
+	}
 }

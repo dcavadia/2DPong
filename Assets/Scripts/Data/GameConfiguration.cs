@@ -76,4 +76,19 @@ public static class GameConfiguration
         get { return dataConfiguration.BallsPerGame; }    
     }
 
+    public static float FreezerSeconds
+    {
+        get { return dataConfiguration.FreezerSeconds; }
+    }
+
+    public static float SpeedupFactor
+    {
+        get { return dataConfiguration.SpeedupFactor; }
+    }
+
+    public static float SpeedupSeconds
+    {
+        get { return dataConfiguration.SpeedupSeconds; }
+    }
+
 }
