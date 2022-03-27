@@ -1,70 +1,67 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Ball : MonoBehaviour
 {
     Timer moveTimer;
 
     Timer deathTimer;
+    BallDied ballDied;
 
     Rigidbody2D rb2d;
     Timer speedupTimer;
     float speedupFactor;
 
+    BallLost ballLost;
+
     void Start()
     {
         moveTimer = gameObject.AddComponent<Timer>();
         moveTimer.Duration = 1;
+        moveTimer.AddTimerFinishedListener(HandleMoveTimerFinished);
         moveTimer.Run();
 
         deathTimer = gameObject.AddComponent<Timer>();
         deathTimer.Duration = GameConfiguration.BallLifeSeconds;
+        deathTimer.AddTimerFinishedListener(HandleDeathTimerFinished);
         deathTimer.Run();
 
+        ballDied = new BallDied();
+        EventManager.AddBallDiedInvoker(this);
+
+        ballLost = new BallLost();
+        EventManager.AddBallLostInvoker(this);
+
         speedupTimer = gameObject.AddComponent<Timer>();
+        speedupTimer.AddTimerFinishedListener(HandleSpeedupTimerFinished);
         EventManager.AddSpeedupEffectListener(HandleSpeedupEffectActivatedEvent);
         rb2d = GetComponent<Rigidbody2D>();
     }
 
     void Update()
     {
-        if (moveTimer.Finished)
-        {
-            moveTimer.Stop();
-            StartMoving();
-        }
 
-        if (deathTimer.Finished)
-        {
-            Camera.main.GetComponent<BallSpawner>().SpawnBall();
-            Destroy(gameObject);
-        }
-
-        if (speedupTimer.Finished)
-        {
-            speedupTimer.Stop();
-            rb2d.velocity *= 1 / speedupFactor;
-        }
     }
 
     void OnBecameInvisible()
     {
-
         if (!deathTimer.Finished)
         {
-
             float halfColliderHeight =
                 gameObject.GetComponent<BoxCollider2D>().size.y / 2;
             if (transform.position.y - halfColliderHeight < ScreenUtils.ScreenBottom)
             {
-                Camera.main.GetComponent<BallSpawner>().SpawnBall();
-                HUD.ReduceBallsLeft();
+                ballLost.Invoke();
             }
             Destroy(gameObject);
         }
     }
 
+    void OnCollisionEnter2D(Collision2D coll)
+    {
+    }
 
     void StartMoving()
     {
@@ -81,6 +78,16 @@ public class Ball : MonoBehaviour
         }
 
         GetComponent<Rigidbody2D>().AddForce(force);
+    }
+
+    public void AddBallLostListener(UnityAction listener)
+    {
+        ballLost.AddListener(listener);
+    }
+
+    public void AddBallDiedListener(UnityAction listener)
+    {
+        ballDied.AddListener(listener);
     }
 
     public void SetDirection(Vector2 direction)
@@ -108,5 +115,23 @@ public class Ball : MonoBehaviour
         this.speedupFactor = speedupFactor;
         speedupTimer.Duration = duration;
         speedupTimer.Run();
+    }
+
+    void HandleMoveTimerFinished()
+    {
+        moveTimer.Stop();
+        StartMoving();
+    }
+
+    void HandleDeathTimerFinished()
+    {
+        ballDied.Invoke();
+        Destroy(gameObject);
+    }
+
+    void HandleSpeedupTimerFinished()
+    {
+        speedupTimer.Stop();
+        rb2d.velocity *= 1 / speedupFactor;
     }
 }
