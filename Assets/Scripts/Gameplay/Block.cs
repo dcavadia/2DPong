@@ -10,6 +10,7 @@ public class Block : MonoBehaviour
 	{
 		if (coll.gameObject.CompareTag("Ball"))
 		{
+			HUD.AddPoints(points);
 			Destroy(gameObject);
 		}
 	}
