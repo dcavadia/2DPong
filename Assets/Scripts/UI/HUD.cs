@@ -1,19 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 using TMPro;
 
-
 public class HUD : MonoBehaviour
 {
-    static TextMeshProUGUI scoreText;
-    static int score = 0;
+    TextMeshProUGUI scoreText;
+    int score = 0;
     const string ScorePrefix = "Score: ";
 
-    static TextMeshProUGUI ballsLeftText;
-    static int ballsLeft;
+    TextMeshProUGUI ballsLeftText;
+    int ballsLeft;
     const string BallsLeftPrefix = "Balls Left: ";
+
+    LastBallLost lastBallLost;
 
     void Start()
     {
@@ -23,18 +25,38 @@ public class HUD : MonoBehaviour
         ballsLeft = GameConfiguration.BallsPerGame;
         ballsLeftText = GameObject.FindGameObjectWithTag("BallsLeftText").GetComponent<TextMeshProUGUI>();
         ballsLeftText.text = BallsLeftPrefix + ballsLeft;
+
+        EventManager.AddPointsAddedListener(AddPoints);
+        EventManager.AddBallLostListener(ReduceBallsLeft);
+
+        lastBallLost = new LastBallLost();
+        EventManager.AddLastBallLostInvoker(this);
     }
 
-    public static void AddPoints(int points)
+    public int Score
+    {
+        get { return score; }
+    }
+
+    public void AddLastBallLostListener(UnityAction listener)
+    {
+        lastBallLost.AddListener(listener);
+    }
+
+    void AddPoints(int points)
     {
         score += points;
         scoreText.text = ScorePrefix + score;
     }
 
-    public static void ReduceBallsLeft()
+    void ReduceBallsLeft()
     {
         ballsLeft--;
         ballsLeftText.text = BallsLeftPrefix + ballsLeft;
+        if (ballsLeft == 0)
+        {
+            lastBallLost.Invoke();
+        }
     }
 
 }
