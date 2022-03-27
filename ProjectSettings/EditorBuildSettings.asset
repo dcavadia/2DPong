@@ -8,4 +8,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/MainMenu.unity
     guid: 2cda990e2423bbf4892e6590ba056729
+  - enabled: 1
+    path: Assets/Scenes/2DPong.unity
+    guid: cc76d1abfbceb524eb5b03f72df572b6
   m_configObjects: {}
