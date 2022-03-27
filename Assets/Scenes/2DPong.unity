@@ -262,6 +262,7 @@ GameObject:
   - component: {fileID: 627995736}
   - component: {fileID: 627995735}
   - component: {fileID: 627995737}
+  - component: {fileID: 627995738}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -311,6 +312,18 @@ MonoBehaviour:
   prefabStandardBlock: {fileID: 4182399025200978565, guid: a33108438302fb54db23c3b8af4a6c8b, type: 3}
   prefabBonusBlock: {fileID: 4182399025200978565, guid: f5add66bc7ebe2b4e9658eafff17a41c, type: 3}
   prefabPickupBlock: {fileID: 4182399025200978565, guid: 57d8e9e4ea7fefe45832621dd2eec9a7, type: 3}
+--- !u!114 &627995738
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 627995734}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30fa0ba846c46c44b8bd661fbc6e9497, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &749327413
 GameObject:
   m_ObjectHideFlags: 0
