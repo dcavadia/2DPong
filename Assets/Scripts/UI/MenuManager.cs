@@ -70,7 +70,7 @@ public class MenuManager : SingletonComponent<MenuManager>
     public void HandleGameoverQuitButtonClicked()
     {
         Time.timeScale = 1;
-        Destroy(gameObject);
+        Destroy(GameObject.FindGameObjectWithTag("GameOverPanel").gameObject);
         GoToMenu(MenuName.Main);
     }
 }

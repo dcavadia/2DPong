@@ -283,7 +283,7 @@ GameObject:
   - component: {fileID: 4453043827197909227}
   m_Layer: 0
   m_Name: GameOverPanel
-  m_TagString: Untagged
+  m_TagString: GameOverPanel
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -568,7 +568,7 @@ GameObject:
   - component: {fileID: 5106817972088289917}
   - component: {fileID: 5106817972088289918}
   - component: {fileID: 5106817972088289919}
-  - component: {fileID: 5106817972088289916}
+  - component: {fileID: 841150990844087610}
   m_Layer: 0
   m_Name: QuitButton
   m_TagString: Untagged
@@ -678,7 +678,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &5106817972088289916
+--- !u!114 &841150990844087610
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -687,6 +687,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 5106817972088289905}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6227d5830bf19bf47b59686d30a16e5e, type: 3}
+  m_Script: {fileID: 11500000, guid: 993b6765cbbec1a4686c96fbfd9ef103, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

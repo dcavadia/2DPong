@@ -9,6 +9,8 @@ TagManager:
   - BallsLeftText
   - Paddle
   - Block
+  - HUD
+  - GameOverPanel
   layers:
   - Default
   - TransparentFX
