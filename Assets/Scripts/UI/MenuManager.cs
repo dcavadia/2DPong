@@ -66,4 +66,11 @@ public class MenuManager : SingletonComponent<MenuManager>
         Destroy(pauseMenu.gameObject);
         GoToMenu(MenuName.Main);
     }
+
+    public void HandleGameoverQuitButtonClicked()
+    {
+        Time.timeScale = 1;
+        Destroy(gameObject);
+        GoToMenu(MenuName.Main);
+    }
 }

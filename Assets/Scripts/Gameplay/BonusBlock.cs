@@ -8,7 +8,6 @@ public class BonusBlock : Block
     {
         base.Start();
 
-        // set points
         points = GameConfiguration.BonusBlockPoints;
     }
 }
