@@ -19,6 +19,11 @@ public class BallSpawner : MonoBehaviour
 
     void Start()
     {
+        if (!GameManager.Instance.deathTimer)
+        {
+            EventManager.AddBallLostListener(SpawnBall);
+        }
+
         //Spawn and destroy ball to calculate
         //Spawn location min and max
         GameObject tempBall = Instantiate<GameObject>(prefabBall);
@@ -46,20 +51,24 @@ public class BallSpawner : MonoBehaviour
 
     void Update()
     {
-        if (spawnTimer.Finished)
+        if (GameManager.Instance.deathTimer)
         {
-            //Don't stack with a spawn still pending
-            retrySpawn = false;
-            SpawnBall();
-            spawnTimer.Duration = GetSpawnDelay();
-            spawnTimer.Run();
-        }
+            if (spawnTimer.Finished)
+            {
+                //Don't stack with a spawn still pending
+                retrySpawn = false;
+                SpawnBall();
+                spawnTimer.Duration = GetSpawnDelay();
+                spawnTimer.Run();
+            }
 
-        //Try again if spawn still pending
-        if (retrySpawn)
-        {
-            SpawnBall();
+            //Try again if spawn still pending
+            if (retrySpawn)
+            {
+                SpawnBall();
+            }
         }
+      
     }
 
     public void SpawnBall()

@@ -26,7 +26,10 @@ public class Ball : MonoBehaviour
         deathTimer = gameObject.AddComponent<Timer>();
         deathTimer.Duration = GameConfiguration.BallLifeSeconds;
         deathTimer.AddTimerFinishedListener(HandleDeathTimerFinished);
-        deathTimer.Run();
+        if (GameManager.Instance.deathTimer)
+        {
+            deathTimer.Run();
+        }
 
         ballDied = new BallDied();
         EventManager.AddBallDiedInvoker(this);

@@ -4,8 +4,11 @@ using UnityEngine;
 
 public class GameManager : SingletonComponent<GameManager>
 {
+    public bool deathTimer;
+
     void Start()
     {
+        deathTimer = MenuManager.Instance.deathTimer;
         EventManager.AddLastBallLostListener(HandleLastBallLost);
         EventManager.AddBlockDestroyedListener(HandleBlockDestroyed);
     }

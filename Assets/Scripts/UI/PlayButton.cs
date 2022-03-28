@@ -5,8 +5,10 @@ using UnityEngine.EventSystems;
 
 public class PlayButton : MonoBehaviour, IPointerClickHandler
 {
+    public bool deathTimer;
+
     public void OnPointerClick(PointerEventData eventData)
     {
-        MenuManager.Instance.HandlePlayButtonOnClickEvent();
+        MenuManager.Instance.HandlePlayButtonOnClickEvent(deathTimer);
     }
 }

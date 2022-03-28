@@ -7,6 +7,7 @@ public class MenuManager : SingletonComponent<MenuManager>
 {
     GameObject pauseMenu;
     public bool paused;
+    public bool deathTimer;
 
     public override void Awake()
     {
@@ -31,9 +32,10 @@ public class MenuManager : SingletonComponent<MenuManager>
         }
     }
 
-    public void HandlePlayButtonOnClickEvent()
+    public void HandlePlayButtonOnClickEvent(bool deathTimerMode)
     {
         SceneManager.LoadScene("2DPong");
+        deathTimer = deathTimerMode;
     }
 
     public void HandleHelpButtonOnClickEvent()
