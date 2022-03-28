@@ -22,7 +22,6 @@ public class MenuManager : SingletonComponent<MenuManager>
                 SceneManager.LoadScene("HelpMenu");
                 break;
             case MenuName.Main:
-
                 SceneManager.LoadScene("MainMenu");
                 break;
             case MenuName.Pause:
@@ -72,5 +71,12 @@ public class MenuManager : SingletonComponent<MenuManager>
         Time.timeScale = 1;
         Destroy(GameObject.FindGameObjectWithTag("GameOverPanel").gameObject);
         GoToMenu(MenuName.Main);
+    }
+
+    public void HandleRestartButtonClicked()
+    {
+        Time.timeScale = 1;
+        Destroy(GameObject.FindGameObjectWithTag("GameOverPanel").gameObject);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }
