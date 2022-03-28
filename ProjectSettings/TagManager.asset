@@ -11,6 +11,8 @@ TagManager:
   - Block
   - HUD
   - GameOverPanel
+  - LeftButton
+  - RightButton
   layers:
   - Default
   - TransparentFX

@@ -13,6 +13,9 @@ public class Paddle : MonoBehaviour
     bool frozen = false;
     Timer freezeTimer;
 
+    MoveLeftButton moveLeft;
+    MoveRightButton moveRight;
+
     void Start()
     {
         rb2d = GetComponent<Rigidbody2D>();
@@ -22,6 +25,9 @@ public class Paddle : MonoBehaviour
 
         freezeTimer = gameObject.AddComponent<Timer>();
         EventManager.AddFreezerEffectListener(HandleFreezerEffectActivatedEvent);
+
+        moveLeft = GameObject.FindGameObjectWithTag("LeftButton").GetComponent<MoveLeftButton>();
+        moveRight = GameObject.FindGameObjectWithTag("RightButton").GetComponent<MoveRightButton>();
     }
 
     void Update()
@@ -42,6 +48,23 @@ public class Paddle : MonoBehaviour
         {
             Vector2 position = rb2d.position;
             position.x += horizontalInput * GameConfiguration.PaddleMoveUnitsPerSecond *
+                Time.deltaTime;
+            position.x = CalculateClampedX(position.x);
+            rb2d.MovePosition(position);
+        }
+
+        if (!frozen && moveRight.IsPressed)
+        {
+            Vector2 position = rb2d.position;
+            position.x += 0.3f * GameConfiguration.PaddleMoveUnitsPerSecond *
+                Time.deltaTime;
+            position.x = CalculateClampedX(position.x);
+            rb2d.MovePosition(position);
+        }
+        if (!frozen && moveLeft.IsPressed) {
+
+            Vector2 position = rb2d.position;
+            position.x += -0.3f * GameConfiguration.PaddleMoveUnitsPerSecond *
                 Time.deltaTime;
             position.x = CalculateClampedX(position.x);
             rb2d.MovePosition(position);
